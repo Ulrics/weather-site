@@ -1,0 +1,74 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+:root{
+    --bdr-grey: rgb(228, 228, 228, 0.6);
+    --bdr-grey-light: rgb(228, 228, 228, 0.2);
+    --primary-blue: rgb(0, 117, 255);
+    --primary-blue-hover: rgb(15, 70, 134);
+    --white: rgb(251, 251, 251);
+
+    --blue-bg: rgb(19, 92,175, 0.75);
+}
+
+body{
+    font-family: 'Inter', 'Helvetica', sans-serif;
+}
+
+.main-container{
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+form{
+    display: flex;
+    justify-content: center;
+    gap: 4px;
+    max-width: 520px; 
+    width: 100%;
+}
+
+.search-bar{
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+    background-color: var(--blue-bg);
+    border: 1px solid var(--bdr-grey-light);
+    border-radius: 6px;
+    padding: 8px;
+}
+
+.primary-btn{
+    padding: 0px 16px;
+    font: 400 1rem/1.5rem 'Inter';
+    border-radius: 6px;
+    border: 0px;
+    color: var(--white);
+    background-color: var(--primary-blue);
+}
+
+.primary-btn:hover{
+    cursor: pointer;
+    background-color: var(--primary-blue-hover);
+}
+
+input{
+    padding: 0px;
+    border: none;
+    background-color: transparent;
+    color: var(--white);
+    font: 300 1.25rem/1.5rem 'Inter';
+
+}
+
+input::placeholder{
+    color: rgb(255, 255, 255, 0.7);
+}
+
+input:focus{
+    outline: none;
+}

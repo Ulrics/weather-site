@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Cast</title>
+</head>
+<body>
+    <div class="main-container">
+        <form action="">
+            <div class="search-bar">
+                <img src="./assets/search-icon.svg" alt="search icon">
+                <input type="text" class="search" placeholder="Search">
+            </div>
+            <button class="primary-btn">Search</button>
+        </form>
+        <div class="info-container">
+            <div class="title-container">
+                <h3 id="location title"></h3>
+                <div class="temp-switch">
+                    <div class="switch-selected" id="farenheit">F°</div>
+                    <div class="switch-unselected" id="celsius">C°</div>
+                </div>
+            </div>
+            <div class="current-temp-container">
+                <div class="current-header">
+                    <div class="16px-text">Current:</div>
+                    <div class="16px-text" id="timestamp"></div>
+                </div>
+                <div class="divider"></div>
+                <div class="current-tempinfo-container">
+                    <h5 class="current-condition"></h5>
+                    <div class="current-temp-icon-container">
+                        <img src="https://via.placeholder.com/50" class="current-temp-icon">
+                        <div class="current-temp-label"></div>
+                    </div>
+                    <div class="high-low-container">
+                        <div class="20-medium" id="maxTemp"></div>
+                        <div class="20-medium" id="lowTemp"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
