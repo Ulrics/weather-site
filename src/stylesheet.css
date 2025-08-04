@@ -12,6 +12,8 @@
 
 body{
     font-family: 'Inter', 'Helvetica', sans-serif;
+    color: var(--white);
+    margin: 0px;
 }
 
 .main-container{
@@ -21,6 +23,9 @@ body{
     justify-content: center;
     align-items: center;
     height: 100vh;
+    background-color: rgb(31, 158, 234);
+    padding: 32px;
+    gap: 64px;
 }
 
 form{
@@ -71,4 +76,98 @@ input::placeholder{
 
 input:focus{
     outline: none;
+}
+
+.info-container{
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+    width: 100%;
+    max-width: 640px;
+}
+
+.location-container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    border: 1px solid var(--bdr-grey-light);
+    border-radius: 8px;
+    width: 100%;
+    box-sizing: border-box;
+    background-color: var(--blue-bg);
+    color: var(--white);
+}
+
+h3{
+    margin: 0px;
+}
+
+h5{
+    margin: 0px;
+}
+
+.temp-switch{
+    display: flex;
+    background-color: var(--blue-bg);
+    border-radius: 8px;
+    border: 1px solid var(--bdr-grey-light);
+    overflow: hidden;
+}
+
+.temp-switch:hover{
+    cursor: pointer;
+}
+
+.switch-selected,
+.switch-unselected{
+    padding: 8px;
+    height: 40px;
+    width: 48px;
+    box-sizing: border-box;
+    border-radius: 6px;
+    font: 700 1rem/1.5rem 'Inter';
+    text-align: center;
+}
+
+.switch-selected{
+    background-color: rgb(255, 255, 255, 0.7);
+    color: #4C5A77;
+}
+
+.current-temp-container{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    background-color: var(--blue-bg);
+    border-radius: 8px;
+    border: 1px solid var(--bdr-grey-light);
+}
+
+.current-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 16px;
+    box-sizing: border-box;
+}
+
+.divider{
+    border: 1px solid var(--bdr-grey);
+}
+
+.text-16px{
+    font: 400 1rem/1.5rem 'Inter';
+}
+
+.current-tempinfo-container{
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    padding: 40px;
 }

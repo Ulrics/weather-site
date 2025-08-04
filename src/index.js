@@ -1,6 +1,7 @@
 import './stylesheet.css';
 
-let currentTempScale = "Fahrenheit"; 
+let currentTempScale = "Fahrenheit";
+let currentTempScaleSymbol = "F°"; 
 
 async function getWeather(searchValue){
     const response = await fetch(`https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${searchValue}?key=8F6YCX5MBXJUR2VB5VHLBQ8EV`);
@@ -24,9 +25,11 @@ class WeatherData {
 function switchScaleSystem(){
     if (currentTempScale === "Fahrenheit"){
         currentTempScale = "Celsius";
+        currentTempScaleSymbol = "C°";
     }
     else{
         currentTempScale = "Fahrenheit";
+        currentTempScaleSymbol = "F°"
     }
 }
 
