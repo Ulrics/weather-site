@@ -1,42 +1,114 @@
 import './stylesheet.css';
+import { getCurrentWeatherObject ,getCurrentTempScale, getWeather, switchScaleSystem, getTimeStamp, convertCelsius } from './weatherData';
 
-let currentTempScale = "Fahrenheit";
-let currentTempScaleSymbol = "F°"; 
+import clearNight from './assets/clearnight-bg.jpg';
+import darkCloud from './assets/darkcloud-bg.jpg';
+import clearDay from './assets/sunny-bg.jpg';
+import lightCloud from './assets/lightcloud-bg.jpg';
 
-async function getWeather(searchValue){
-    const response = await fetch(`https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${searchValue}?key=8F6YCX5MBXJUR2VB5VHLBQ8EV`);
-    const data = await response.json();
-    const location = data.resolvedAddress;
-    const currentMaxTemp = data.days[0].tempmax;
-    const currentMinTemp = data.days[0].tempmin;
-    const currentTemp = data.days[0].temp;
-    const currentIcon = data.days[0].icon;
-}
+// Automatically import all SVGs in the assets folder
+const requireSvgs = require.context('./assets', false, /\.svg$/);
 
-class WeatherData {
-    constructor(location, currentMaxTemp, currentMinTemp, currentTemp) {
-        this.location = location;
-        this.currentMaxTemp = currentMaxTemp;
-        this.currentMinTemp = currentMinTemp;
-        this.currentTemp = currentTemp;
-    }
-}
+const icons = {};
+requireSvgs.keys().forEach((fileName) => {
+  const key = fileName.replace('./', '').replace('.svg', '');
+  icons[key] = requireSvgs(fileName);
+});
 
-function switchScaleSystem(){
-    if (currentTempScale === "Fahrenheit"){
-        currentTempScale = "Celsius";
-        currentTempScaleSymbol = "C°";
+const searchBar = document.getElementById("searchBar");
+const mainContainer = document.querySelector(".main-container");
+
+const tempSwitch = document.querySelector(".temp-switch");
+const farenheitToggle = document.getElementById("farenheit");
+const celsiusToggle = document.getElementById("celsius");
+
+const locationHeader = document.getElementById("locationTitle");
+const timeStamp = document.getElementById("timestamp");
+const currentDescription = document.getElementById("currentTempDescrip");
+const currentIcon = document.getElementById("currentTempIcon");
+const currentTemp = document.getElementById("currentTemp");
+const currentMaxTemp = document.getElementById("highTemp");
+const currentLowTemp = document.getElementById("lowTemp");
+
+tempSwitch.addEventListener("click", renderTempSwitch);
+
+function renderUI(weatherObject){
+    console.log(weatherObject);
+    mainContainer.style.backgroundImage = backgroundMap[weatherObject.currentIcon];
+    renderContainerColor(weatherObject.currentIcon);
+    locationHeader.textContent = weatherObject.location;
+    timeStamp.textContent = `As of ${getTimeStamp()}`;
+    currentDescription.textContent = weatherObject.currentDescrip;
+    currentIcon.src = icons[weatherObject.currentIcon];
+
+    if(getCurrentTempScale() === "Fahrenheit"){
+        currentTemp.textContent = `${weatherObject.currentTemp}°`;
+        currentMaxTemp.textContent = `H: ${weatherObject.currentMaxTemp}°`;
+        currentLowTemp.textContent = `L: ${weatherObject.currentMinTemp}°`;
     }
     else{
-        currentTempScale = "Fahrenheit";
-        currentTempScaleSymbol = "F°"
+        const celsiusCurrent = convertCelsius(weatherObject.currentTemp).toFixed(1);
+        const celsiusMax = convertCelsius(weatherObject.currentMaxTemp).toFixed(1);
+        const celsiusLow = convertCelsius(weatherObject.currentMinTemp).toFixed(1);
+
+        currentTemp.textContent = `${celsiusCurrent}°`;
+        currentMaxTemp.textContent = `H: ${celsiusMax}°`;
+        currentLowTemp.textContent = `L: ${celsiusLow}°`;
     }
 }
 
-function convertCelsius(tempInt){
-    return (tempInt - 32)/1.8;
+function renderTempSwitch(){
+    switchScaleSystem();
+    console.log(getCurrentTempScale());
+    if(getCurrentTempScale() === "Fahrenheit"){
+        farenheitToggle.removeAttribute('class');
+        farenheitToggle.classList.add("switch-selected");
+
+        celsiusToggle.removeAttribute('class');
+        celsiusToggle.classList.add("switch-unselected")
+    }
+    else{
+        farenheitToggle.removeAttribute('class');
+        farenheitToggle.classList.add("switch-unselected");
+
+        celsiusToggle.removeAttribute('class');
+        celsiusToggle.classList.add("switch-selected")
+    }
+    renderUI(getCurrentWeatherObject());
 }
 
-function renderUI(){
-
+function renderContainerColor(weatherIcon){
+    const containerBgColor = backgroundColorMap[weatherIcon];
+    document.documentElement.style.setProperty('--container-bg', containerBgColor);
 }
+
+const backgroundMap = {
+  "snow": `url(${lightCloud})`,
+  "rain": `url(${darkCloud})`,
+  "fog": `url(${lightCloud})`,
+  "wind": `url(${lightCloud})`,
+  "cloudy": `url(${lightCloud})`,
+  "partly-cloudy-day": `url(${clearDay})`,
+  "partly-cloudy-night": `url(${clearNight})`,
+  "clear-day": `url(${clearDay})`,
+  "clear-night": `url(${clearNight})`,
+};
+
+
+
+const backgroundColorMap = {
+  "snow": 'rgb(79, 79, 79, 0.45)',
+  "rain": 'rgb(79, 79, 79, 0.45)',
+  "fog": 'rgb(79, 79, 79, 0.45)',
+  "wind": 'rgb(79, 79, 79, 0.45)',
+  "cloudy": 'rgb(79, 79, 79, 0.45)',
+  "partly-cloudy-day": 'rgb(19, 92, 175, 0.75)',
+  "partly-cloudy-night": 'rgb(19, 92, 175, 0.75)',
+  "clear-day": 'rgb(19, 92, 175, 0.75)',
+  "clear-night": 'rgb(19, 92, 175, 0.75)',
+};
+
+
+getWeather("Shelby, Montana").then(() =>{
+    renderUI(getCurrentWeatherObject());
+});

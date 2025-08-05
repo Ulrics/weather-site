@@ -7,16 +7,19 @@
 </head>
 <body>
     <div class="main-container">
-        <form action="">
-            <div class="search-bar">
-                <img src="./assets/search-icon.svg" alt="search icon">
-                <input type="text" placeholder="Search">
-            </div>
-            <button class="primary-btn">Search</button>
-        </form>
+        <div class="form-container">
+            <form action="">
+                <div class="search-bar">
+                    <img src="./assets/search-icon.svg" alt="search icon">
+                    <input type="text" placeholder="Search" id="searchBar">
+                </div>
+                <button class="primary-btn">Search</button>
+            </form>
+            <div class="error-message" id="error"></div>
+        </div>
         <div class="info-container">
             <div class="location-container">
-                <h3 id="location title">Placeholder</h3>
+                <h3 id="locationTitle">Placeholder</h3>
                 <div class="temp-switch">
                     <div class="switch-selected" id="farenheit">F°</div>
                     <div class="switch-unselected" id="celsius">C°</div>
@@ -29,14 +32,14 @@
                 </div>
                 <div class="divider"></div>
                 <div class="current-tempinfo-container">
-                    <h5 class="current-condition">Placeholder</h5>
+                    <div class="text-20px" id="currentTempDescrip">Placeholder</div>
                     <div class="current-temp-icon-container">
-                        <img src="https://via.placeholder.com/50" class="current-temp-icon">
-                        <div class="current-temp-label">Placeholder F°</div>
+                        <img src="https://via.placeholder.com/50" alt="current weather Icon" class="current-temp-icon" id="currentTempIcon">
+                        <div class="current-temp-label" id="currentTemp">Placeholder F°</div>
                     </div>
                     <div class="high-low-container">
-                        <div class="20-medium" id="maxTemp">H: Placeholder</div>
-                        <div class="20-medium" id="lowTemp">L: Placeholder</div>
+                        <div class="medium-20px" id="highTemp">H: Placeholder</div>
+                        <div class="medium-20px" id="lowTemp">L: Placeholder</div>
                     </div>
                 </div>
             </div>
