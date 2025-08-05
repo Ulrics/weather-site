@@ -1,5 +1,7 @@
+export { renderUI }
+
 import './stylesheet.css';
-import { getCurrentWeatherObject ,getCurrentTempScale, getWeather, switchScaleSystem, getTimeStamp, convertCelsius } from './weatherData';
+import { getCurrentWeatherObject ,getCurrentTempScale, getWeather, switchScaleSystem, getTimeStamp, convertCelsius } from './weatherData.js';
 
 import clearNight from './assets/clearnight-bg.jpg';
 import darkCloud from './assets/darkcloud-bg.jpg';
@@ -16,6 +18,7 @@ requireSvgs.keys().forEach((fileName) => {
 });
 
 const searchBar = document.getElementById("searchBar");
+const form = document.querySelector("form");
 const mainContainer = document.querySelector(".main-container");
 
 const tempSwitch = document.querySelector(".temp-switch");
@@ -31,6 +34,7 @@ const currentMaxTemp = document.getElementById("highTemp");
 const currentLowTemp = document.getElementById("lowTemp");
 
 tempSwitch.addEventListener("click", renderTempSwitch);
+form.addEventListener("submit", searchLocation);
 
 function renderUI(weatherObject){
     console.log(weatherObject);
@@ -82,6 +86,14 @@ function renderContainerColor(weatherIcon){
     document.documentElement.style.setProperty('--container-bg', containerBgColor);
 }
 
+function searchLocation(event){
+    event.preventDefault();
+
+    const searchString = searchBar.value;
+    getWeather(searchString);
+    form.reset();
+}
+
 const backgroundMap = {
   "snow": `url(${lightCloud})`,
   "rain": `url(${darkCloud})`,
@@ -108,7 +120,4 @@ const backgroundColorMap = {
   "clear-night": 'rgb(19, 92, 175, 0.75)',
 };
 
-
-getWeather("Shelby, Montana").then(() =>{
-    renderUI(getCurrentWeatherObject());
-});
+getWeather("Los Angeles");

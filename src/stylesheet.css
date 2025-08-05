@@ -24,8 +24,8 @@ body{
     align-items: center;
     height: 100vh;
     background-color: rgb(31, 158, 234);
-    padding: 32px;
-    gap: 40px;
+    padding: 16px;
+    gap: 48px;
 
     background-repeat: no-repeat;
     background-attachment: fixed;
